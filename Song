@@ -1,118 +1,89 @@
--- phpMyAdmin SQL Dump
--- version 4.4.12
--- http://www.phpmyadmin.net
+-- MySQL dump 10.13  Distrib 5.6.25, for Win32 (x86)
 --
--- Host: 127.0.0.1
--- Generation Time: Jan 16, 2020 at 10:18 PM
--- Server version: 5.6.25
--- PHP Version: 5.6.11
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
+-- Host: localhost    Database: perusahaan
+-- ------------------------------------------------------
+-- Server version	5.6.25
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Database: `song`
+-- Current Database: `perusahaan`
 --
 
--- --------------------------------------------------------
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `perusahaan` /*!40100 DEFAULT CHARACTER SET latin1 */;
+
+USE `perusahaan`;
 
 --
--- Table structure for table `albums`
+-- Table structure for table `gaji`
 --
 
-CREATE TABLE IF NOT EXISTS `albums` (
-  `Albumid` int(11) NOT NULL,
-  `AlbumName` varchar(255) DEFAULT NULL,
-  `DateReleased` datetime DEFAULT NULL,
-  `Artistid` int(11) DEFAULT NULL,
-  `Genreid` int(11) DEFAULT NULL
+DROP TABLE IF EXISTS `gaji`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `gaji` (
+  `no_id` int(4) NOT NULL,
+  `gaji` bigint(10) NOT NULL,
+  `dari` date NOT NULL,
+  `sampai` date DEFAULT NULL,
+  KEY `no_id` (`no_id`),
+  CONSTRAINT `gaji_ibfk_1` FOREIGN KEY (`no_id`) REFERENCES `pegawai` (`no_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `artist`
+-- Dumping data for table `gaji`
 --
 
-CREATE TABLE IF NOT EXISTS `artist` (
-  `Artistid` int(11) NOT NULL,
-  `ArtistName` varchar(255) NOT NULL
+LOCK TABLES `gaji` WRITE;
+/*!40000 ALTER TABLE `gaji` DISABLE KEYS */;
+/*!40000 ALTER TABLE `gaji` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `pegawai`
+--
+
+DROP TABLE IF EXISTS `pegawai`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pegawai` (
+  `no_id` int(4) NOT NULL DEFAULT '0',
+  `nama` varchar(20) DEFAULT NULL,
+  `tgl_lahir` date DEFAULT NULL,
+  `jenis_kel` enum('L','P') DEFAULT NULL,
+  `email` varchar(25) DEFAULT NULL,
+  `alamat` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`no_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `artist`
+-- Dumping data for table `pegawai`
 --
 
-INSERT INTO `artist` (`Artistid`, `ArtistName`) VALUES
-(1, 'Budi'),
-(2, 'Do'),
-(3, 'Re'),
-(4, 'Mi'),
-(5, 'Fa');
+LOCK TABLES `pegawai` WRITE;
+/*!40000 ALTER TABLE `pegawai` DISABLE KEYS */;
+INSERT INTO `pegawai` VALUES (1,'Dadang Suherman','2020-01-16','L','Dadang@dah.com','Nomaden'),(2,'Nanang Suherman','2020-02-29','L','Nanang@dah.com','Nomaden'),(3,'Chris','1970-02-01','L','chris@gmail.com','Nomaden'),(4,'Hemsworth','1971-02-02','L','Hemsworth@gmail.com','Nomaden'),(6,'Ratna','1990-12-12','P','Ratna@rocketmail.com','Nomaden'),(7,'Achernar','2001-03-04','P','ACH@yahoo.com','Nomaden'),(8,'Andromeda','1975-06-04','P','and@facebook.com','Nomaden'),(9,'Aldebaran','1960-04-04','P','Ald@yahoomail.com','Nomaden');
+/*!40000 ALTER TABLE `pegawai` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `genre`
---
-
-CREATE TABLE IF NOT EXISTS `genre` (
-  `Genreid` int(11) NOT NULL,
-  `Genre` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `genre`
---
-
-INSERT INTO `genre` (`Genreid`, `Genre`) VALUES
-(1, 'Rock'),
-(2, 'Hardcore'),
-(3, 'Scream'),
-(4, 'Jrock'),
-(5, 'Headbang');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `albums`
---
-ALTER TABLE `albums`
-  ADD PRIMARY KEY (`Albumid`),
-  ADD KEY `Artistid` (`Artistid`),
-  ADD KEY `Genreid` (`Genreid`);
-
---
--- Indexes for table `artist`
---
-ALTER TABLE `artist`
-  ADD PRIMARY KEY (`Artistid`);
-
---
--- Indexes for table `genre`
---
-ALTER TABLE `genre`
-  ADD PRIMARY KEY (`Genreid`);
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `albums`
---
-ALTER TABLE `albums`
-  ADD CONSTRAINT `albums_ibfk_1` FOREIGN KEY (`Artistid`) REFERENCES `artist` (`Artistid`),
-  ADD CONSTRAINT `albums_ibfk_2` FOREIGN KEY (`Genreid`) REFERENCES `genre` (`Genreid`);
-
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2020-01-17  4:23:48
