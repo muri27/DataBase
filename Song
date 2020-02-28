@@ -1,0 +1,118 @@
+-- phpMyAdmin SQL Dump
+-- version 4.4.12
+-- http://www.phpmyadmin.net
+--
+-- Host: 127.0.0.1
+-- Generation Time: Jan 16, 2020 at 10:18 PM
+-- Server version: 5.6.25
+-- PHP Version: 5.6.11
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `song`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `albums`
+--
+
+CREATE TABLE IF NOT EXISTS `albums` (
+  `Albumid` int(11) NOT NULL,
+  `AlbumName` varchar(255) DEFAULT NULL,
+  `DateReleased` datetime DEFAULT NULL,
+  `Artistid` int(11) DEFAULT NULL,
+  `Genreid` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `artist`
+--
+
+CREATE TABLE IF NOT EXISTS `artist` (
+  `Artistid` int(11) NOT NULL,
+  `ArtistName` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `artist`
+--
+
+INSERT INTO `artist` (`Artistid`, `ArtistName`) VALUES
+(1, 'Budi'),
+(2, 'Do'),
+(3, 'Re'),
+(4, 'Mi'),
+(5, 'Fa');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `genre`
+--
+
+CREATE TABLE IF NOT EXISTS `genre` (
+  `Genreid` int(11) NOT NULL,
+  `Genre` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `genre`
+--
+
+INSERT INTO `genre` (`Genreid`, `Genre`) VALUES
+(1, 'Rock'),
+(2, 'Hardcore'),
+(3, 'Scream'),
+(4, 'Jrock'),
+(5, 'Headbang');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `albums`
+--
+ALTER TABLE `albums`
+  ADD PRIMARY KEY (`Albumid`),
+  ADD KEY `Artistid` (`Artistid`),
+  ADD KEY `Genreid` (`Genreid`);
+
+--
+-- Indexes for table `artist`
+--
+ALTER TABLE `artist`
+  ADD PRIMARY KEY (`Artistid`);
+
+--
+-- Indexes for table `genre`
+--
+ALTER TABLE `genre`
+  ADD PRIMARY KEY (`Genreid`);
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `albums`
+--
+ALTER TABLE `albums`
+  ADD CONSTRAINT `albums_ibfk_1` FOREIGN KEY (`Artistid`) REFERENCES `artist` (`Artistid`),
+  ADD CONSTRAINT `albums_ibfk_2` FOREIGN KEY (`Genreid`) REFERENCES `genre` (`Genreid`);
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
