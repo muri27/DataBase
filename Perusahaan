@@ -1,93 +1,78 @@
--- phpMyAdmin SQL Dump
--- version 4.4.12
--- http://www.phpmyadmin.net
+-- MySQL dump 10.13  Distrib 5.6.25, for Win32 (x86)
 --
--- Host: 127.0.0.1
--- Generation Time: Jan 16, 2020 at 10:18 PM
--- Server version: 5.6.25
--- PHP Version: 5.6.11
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
+-- Host: localhost    Database: perusahaan
+-- ------------------------------------------------------
+-- Server version	5.6.25
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Database: `perusahaan`
+-- Current Database: `perusahaan`
 --
 
--- --------------------------------------------------------
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `perusahaan` /*!40100 DEFAULT CHARACTER SET latin1 */;
+
+USE `perusahaan`;
 
 --
 -- Table structure for table `gaji`
 --
 
-CREATE TABLE IF NOT EXISTS `gaji` (
+DROP TABLE IF EXISTS `gaji`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `gaji` (
   `no_id` int(4) NOT NULL,
   `gaji` bigint(10) NOT NULL,
   `dari` date NOT NULL,
-  `sampai` date DEFAULT NULL
+  `sampai` date DEFAULT NULL,
+  KEY `no_id` (`no_id`),
+  CONSTRAINT `gaji_ibfk_1` FOREIGN KEY (`no_id`) REFERENCES `pegawai` (`no_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- --------------------------------------------------------
+--
+-- Dumping data for table `gaji`
+--
+
+LOCK TABLES `gaji` WRITE;
+/*!40000 ALTER TABLE `gaji` DISABLE KEYS */;
+/*!40000 ALTER TABLE `gaji` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `pegawai`
 --
 
-CREATE TABLE IF NOT EXISTS `pegawai` (
+DROP TABLE IF EXISTS `pegawai`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pegawai` (
   `no_id` int(4) NOT NULL DEFAULT '0',
   `nama` varchar(20) DEFAULT NULL,
   `tgl_lahir` date DEFAULT NULL,
   `jenis_kel` enum('L','P') DEFAULT NULL,
   `email` varchar(25) DEFAULT NULL,
-  `alamat` varchar(25) DEFAULT NULL
+  `alamat` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`no_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `pegawai`
 --
 
-INSERT INTO `pegawai` (`no_id`, `nama`, `tgl_lahir`, `jenis_kel`, `email`, `alamat`) VALUES
-(1, 'Dadang Suherman', '2020-01-16', 'L', 'Dadang@dah.com', 'Nomaden'),
-(2, 'Nanang Suherman', '2020-02-29', 'L', 'Nanang@dah.com', 'Nomaden'),
-(3, 'Chris', '1970-02-01', 'L', 'chris@gmail.com', 'Nomaden'),
-(4, 'Hemsworth', '1971-02-02', 'L', 'Hemsworth@gmail.com', 'Nomaden'),
-(6, 'Ratna', '1990-12-12', 'P', 'Ratna@rocketmail.com', 'Nomaden'),
-(7, 'Achernar', '2001-03-04', 'P', 'ACH@yahoo.com', 'Nomaden'),
-(8, 'Andromeda', '1975-06-04', 'P', 'and@facebook.com', 'Nomaden'),
-(9, 'Aldebaran', '1960-04-04', 'P', 'Ald@yahoomail.com', 'Nomaden');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `gaji`
---
-ALTER TABLE `gaji`
-  ADD KEY `no_id` (`no_id`);
-
---
--- Indexes for table `pegawai`
---
-ALTER TABLE `pegawai`
-  ADD PRIMARY KEY (`no_id`);
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `gaji`
---
-ALTER TABLE `gaji`
-  ADD CONSTRAINT `gaji_ibfk_1` FOREIGN KEY (`no_id`) REFERENCES `pegawai` (`no_id`);
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+LOCK TABLES `pegawai` WRITE;
+/*!40000 ALTER TABLE `pegawai` DISABLE KEYS */;
+INSERT INTO `pegawai` VALUES (1,'Dadang Suherman','2020-01-16','L','Dadang@dah.com','Nomaden'),(2,'Nanang Suherman','2020-02-29','L','Nanang@dah.com','Nomaden'),(3,'Chris','1970-02-01','L','chris@gmail.com','Nomaden'),(4,'Hemsworth','1971-02-02','L','Hemsworth@gmail.com','Nomaden'),(6,'Ratna','1990-12-12','P','Ratna@rocketmail.com','Nomaden'),(7,'Achernar','2001-03-04','P','ACH@yahoo.com','Nomaden'),(8,'Andromeda','1975-06-04','P','and@facebook.com','Nomaden'),(9,'Aldebaran','1960-04-04','P','Ald@yahoomail.com','Nomaden');
+/*!40000 ALTER TABLE `pegawai` ENABLE KEYS */;
+UNLOCK TABLES;
